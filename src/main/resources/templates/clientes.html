@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes</title>
+    <style>
+        .clearfix::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="contenedora" style="float: none; margin: 0 auto; width: 95%;">
+        <div>
+            <h1>Listado de Clientes</h1>
+        </div>
+
+        <hr/>
+
+        <!-- Cabeceras de la tabla -->
+        <div class="clearfix" style="font-weight: bold; background-color: #f0f0f0; padding: 5px;">
+            <div style="float: left; width: 16%;">Id</div>
+            <div style="float: left; width: 16%;">Nombre</div>
+            <div style="float: left; width: 16%;">Apellido1</div>
+            <div style="float: left; width: 16%;">Apellido2</div>
+            <div style="float: left; width: 16%;">Ciudad</div>
+            <div style="float: left; width: 16%;">Categoría</div>
+        </div>
+        <hr/>
+
+        <!-- Iteración con Thymeleaf para mostrar cada cliente[cite: 12] -->
+        <div th:each="cliente : ${listaClientes}" style="margin-top: 6px;" class="clearfix">
+            <div style="float: left; width: 16%;" th:text="${cliente.id}">0</div>
+            <div style="float: left; width: 16%;" th:text="${cliente.nombre}">nombre</div>
+            <div style="float: left; width: 16%;" th:text="${cliente.apellido1}">apellido1</div>
+            <div style="float: left; width: 16%;" th:text="${cliente.apellido2 != null ? cliente.apellido2 : '&nbsp;'}">apellido2</div>
+            <div style="float: left; width: 16%;" th:text="${cliente.ciudad}">ciudad</div>
+            <div style="float: left; width: 16%;" th:text="${cliente.categoria}">categoría</div>
+        </div>
+        <hr/>
+    </div>
+
+</body>
+</html>
