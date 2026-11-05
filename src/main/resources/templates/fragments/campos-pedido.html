@@ -1,0 +1,21 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="campos">
+    <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+        <ul><li th:each="mensaje : ${#fields.allErrors()}" th:text="${mensaje}"></li></ul>
+    </div>
+    <label class="form-label" for="total">Total</label>
+    <input class="form-control mb-3" type="number" step="any" th:field="*{total}" required>
+    <label class="form-label" for="fecha">Fecha</label>
+    <input class="form-control mb-3" type="date" th:field="*{fecha}">
+    <label class="form-label" for="clienteId">Cliente</label>
+    <select class="form-select mb-3" th:field="*{clienteId}" required>
+        <option value="">Selecciona un cliente</option>
+        <option th:each="persona : ${clientes}" th:value="${persona.id}"
+                th:text="${persona.nombre + ' ' + persona.apellido1 + (persona.apellido2 == null ? '' : ' ' + persona.apellido2)}"></option>
+    </select>
+    <label class="form-label" for="comercialId">Comercial</label>
+    <select class="form-select mb-3" th:field="*{comercialId}" required>
+        <option value="">Selecciona un comercial</option>
+        <option th:each="persona : ${comerciales}" th:value="${persona.id}"
+                th:text="${persona.nombre + ' ' + persona.apellido1 + (persona.apellido2 == null ? '' : ' ' + persona.apellido2)}"></option>
+    </select>
+</div>

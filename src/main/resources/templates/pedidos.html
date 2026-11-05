@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Pedidos')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<main class="container py-4">
+    <h1 class="h2 mb-4">Pedidos</h1>
+    <a class="btn btn-primary mb-3" th:href="@{/pedidos/crear}">Crear pedido</a>
+    <div class="table-responsive"><table class="table table-striped align-middle">
+        <thead class="table-dark"><tr><th>ID</th><th>Total</th><th>Fecha</th><th>Cliente</th><th>Comercial</th><th>Acciones</th></tr></thead>
+        <tbody><tr th:each="d : ${pedidos}">
+            <td th:text="${d.pedido.id}"></td>
+            <td th:text="${d.pedido.total}"></td>
+            <td th:text="${d.pedido.fecha ?: '-'}"></td>
+            <td th:text="${d.clienteNombre}"></td>
+            <td th:text="${d.comercialNombre}"></td>
+            <td><div class="d-flex gap-2">
+                <a class="btn btn-sm btn-outline-primary" th:href="@{/pedidos/{id}(id=${d.pedido.id})}">Ver detalle</a>
+                <a class="btn btn-sm btn-outline-secondary" th:href="@{/pedidos/editar/{id}(id=${d.pedido.id})}">Editar</a>
+                <form method="post" th:action="@{/pedidos/borrar/{id}(id=${d.pedido.id})}">
+                    <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+                </form>
+            </div></td>
+        </tr></tbody>
+    </table></div>
+</main>
+</body>
+</html>

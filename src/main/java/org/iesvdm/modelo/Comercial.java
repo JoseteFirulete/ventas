@@ -8,11 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comercial {
-    
-    private int id;
-    private String nombre;
-    private String apellido1;
-    private String apellido2;
-    private double comision; // o float, dependiendo de cómo lo tengas definido en tu base de datos y DAO
-
+	private int id;
+	private String nombre;
+	private String apellido1;
+	private String apellido2;
+	private Float comisión;
 }
