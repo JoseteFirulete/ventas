@@ -3,7 +3,7 @@
         <ul><li th:each="mensaje : ${#fields.allErrors()}" th:text="${mensaje}"></li></ul>
     </div>
     <label class="form-label" for="total">Total</label>
-    <input class="form-control mb-3" type="number" step="any" th:field="*{total}" required>
+    <input class="form-control mb-3" type="number" step="0.01" th:field="*{total}" required>
     <label class="form-label" for="fecha">Fecha</label>
     <input class="form-control mb-3" type="date" th:field="*{fecha}">
     <label class="form-label" for="clienteId">Cliente</label>

@@ -21,7 +21,7 @@ public class PedidoDAOImpl implements PedidoDAO {
     private static final RowMapper<PedidoDetalle> MAPPER = (rs, row) -> {
         Pedido pedido = new Pedido();
         pedido.setId(rs.getInt("id"));
-        pedido.setTotal(rs.getDouble("total"));
+        pedido.setTotal(rs.getBigDecimal("total"));
         pedido.setFecha(rs.getObject("fecha", java.time.LocalDate.class));
         pedido.setClienteId(rs.getInt("id_cliente"));
         pedido.setComercialId(rs.getInt("id_comercial"));

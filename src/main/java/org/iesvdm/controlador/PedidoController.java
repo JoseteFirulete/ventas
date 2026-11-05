@@ -1,5 +1,6 @@
 package org.iesvdm.controlador;
 
+import java.math.BigDecimal;
 import org.iesvdm.modelo.Pedido;
 import org.iesvdm.servicios.ClienteService;
 import org.iesvdm.servicios.ComercialService;
@@ -70,8 +71,10 @@ public class PedidoController {
     }
 
     private String guardar(Pedido pedido, BindingResult errores, Model model, boolean editar) {
-        if (pedido.getTotal() == null || !Double.isFinite(pedido.getTotal())) {
-            errores.rejectValue("total", "invalido", "Introduce un importe válido.");
+        BigDecimal total = pedido.getTotal();
+        if (total == null || total.scale() > 2 || total.precision() - total.scale() > 10
+                || total.abs().compareTo(new BigDecimal("9999999999.99")) > 0) {
+            errores.rejectValue("total", "invalido", "Introduce un importe válido de hasta 10 cifras y 2 decimales.");
         }
         if (pedido.getClienteId() == null || clientes.find(pedido.getClienteId()).isEmpty()) {
             errores.rejectValue("clienteId", "invalido", "Selecciona un cliente existente.");

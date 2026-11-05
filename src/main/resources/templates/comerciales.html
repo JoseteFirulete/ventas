@@ -23,7 +23,7 @@
                         <td th:text="${comercial.comisión ?: '-'}">comisión</td>
                         <td>
                             <div class="d-flex flex-wrap gap-2">
-                                <form th:action="@{/comerciales/{id}(id=${comercial.id})}" method="post"><button class="btn btn-sm btn-outline-primary" type="submit">Ver detalle</button></form>
+                                <form th:action="@{/comerciales/{id}(id=${comercial.id})}" method="get"><button class="btn btn-sm btn-outline-primary" type="submit">Ver detalle</button></form>
                                 <form th:action="@{/comerciales/editar/{id}(id=${comercial.id})}" method="get"><button class="btn btn-sm btn-outline-secondary" type="submit">Editar</button></form>
                                 <form th:action="@{/comerciales/borrar/{id}(id=${comercial.id})}" method="post"><button class="btn btn-sm btn-outline-danger" type="submit">Eliminar</button></form>
                             </div>
