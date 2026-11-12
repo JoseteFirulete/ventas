@@ -43,6 +43,16 @@ public class PedidoDAOImpl implements PedidoDAO {
     }
 
     @Override
+    public List<PedidoDetalle> findByComercialId(int comercialId) {
+        return jdbc.query(SELECT + " WHERE p.id_comercial = ?", MAPPER, comercialId);
+    }
+
+    @Override
+    public List<PedidoDetalle> findByClienteId(int clienteId) {
+        return jdbc.query(SELECT + " WHERE p.id_cliente = ?", MAPPER, clienteId);
+    }
+
+    @Override
     public void create(Pedido pedido) {
         jdbc.update("INSERT INTO pedido (total, fecha, id_cliente, id_comercial) VALUES (?, ?, ?, ?)",
                 pedido.getTotal(), pedido.getFecha(), pedido.getClienteId(), pedido.getComercialId());

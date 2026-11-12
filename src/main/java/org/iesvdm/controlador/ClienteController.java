@@ -34,6 +34,7 @@ public class ClienteController {
         return clienteService.find(id)
                 .map(cliente -> {
                     model.addAttribute("cliente", cliente);
+                    model.addAttribute("pedidos", clienteService.listPedidosByCliente(id));
                     return "detalle-cliente";
                 })
                 .orElse("redirect:/clientes");

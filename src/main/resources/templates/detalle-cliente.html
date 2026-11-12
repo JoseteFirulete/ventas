@@ -13,6 +13,25 @@
             <dt class="col-sm-4">Ciudad</dt><dd class="col-sm-8" th:text="${cliente.ciudad ?: '-'}">ciudad</dd>
             <dt class="col-sm-4">Categoría</dt><dd class="col-sm-8" th:text="${cliente.categoría ?: '-'}">categoría</dd>
         </dl>
+        <h2 class="h4 mt-4">Pedidos</h2>
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead class="table-dark">
+                    <tr><th>ID</th><th>Total</th><th>Fecha</th><th>Comercial</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:each="pedido : ${pedidos}">
+                        <td th:text="${pedido.pedido.id}">0</td>
+                        <td th:text="${pedido.pedido.total}">0.00</td>
+                        <td th:text="${pedido.pedido.fecha ?: '-'}">fecha</td>
+                        <td th:text="${pedido.comercialNombre}">comercial</td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(pedidos)}">
+                        <td colspan="4" class="text-center">Este cliente no tiene pedidos.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <a class="btn btn-outline-secondary" th:href="@{/clientes}">Volver</a>
     </main>
 </body>
