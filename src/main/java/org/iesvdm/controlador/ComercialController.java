@@ -34,8 +34,10 @@ public class ComercialController {
 	public String detalle(Model model, @PathVariable int id) {
 		return comercialService.find(id)
 				.map(comercial -> {
+					var pedidos = comercialService.listPedidosByComercial(id);
 					model.addAttribute("comercial", comercial);
-					model.addAttribute("pedidos", comercialService.listPedidosByComercial(id));
+					model.addAttribute("pedidos", pedidos);
+					model.addAttribute("estadisticas", comercialService.estadisticasPedidos(pedidos));
 					return "detalle-comercial";
 				})
 				.orElse("redirect:/comerciales");

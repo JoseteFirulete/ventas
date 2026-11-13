@@ -3,7 +3,7 @@
 <head th:replace="~{fragments/layout :: head('Detalle del comercial')}"></head>
 <body>
     <nav th:replace="~{fragments/layout :: navbar}"></nav>
-    <main class="container py-4" style="max-width: 720px">
+    <main class="container py-4">
         <h1 class="h2 mb-4">Detalle del comercial</h1>
         <dl class="row">
             <dt class="col-sm-4">ID</dt><dd class="col-sm-8" th:text="${comercial.id}">0</dd>
@@ -12,14 +12,40 @@
             <dt class="col-sm-4">Apellido 2</dt><dd class="col-sm-8" th:text="${comercial.apellido2 ?: '-'}">apellido2</dd>
             <dt class="col-sm-4">Comisión</dt><dd class="col-sm-8" th:text="${comercial.comisión ?: '-'}">comisión</dd>
         </dl>
+        <h2 class="h4 mt-4">Estadísticas de pedidos</h2>
+        <div class="row g-3 mb-4">
+            <div class="col-sm-4">
+                <div class="card h-100"><div class="card-body">
+                    <h3 class="h6 text-muted">Cantidad de pedidos</h3>
+                    <p class="h4 mb-0" th:text="${estadisticas.cantidadPedidos}">0</p>
+                </div></div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card h-100"><div class="card-body">
+                    <h3 class="h6 text-muted">Importe total</h3>
+                    <p class="h4 mb-0" th:text="${estadisticas.importeTotal}">0.00</p>
+                </div></div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card h-100"><div class="card-body">
+                    <h3 class="h6 text-muted">Importe medio</h3>
+                    <p class="h4 mb-0" th:text="${estadisticas.importeMedio}">0.00</p>
+                </div></div>
+            </div>
+        </div>
         <h2 class="h4 mt-4">Pedidos</h2>
+        <p class="small mb-2">
+            <span class="badge text-bg-success">Verde</span> Pedido de importe máximo
+            <span class="badge text-bg-warning ms-2">Amarillo</span> Pedido de importe mínimo
+        </p>
         <div class="table-responsive">
             <table class="table table-striped align-middle">
                 <thead class="table-dark">
                     <tr><th>ID</th><th>Total</th><th>Fecha</th><th>Cliente</th></tr>
                 </thead>
                 <tbody>
-                    <tr th:each="pedido : ${pedidos}">
+                    <tr th:each="pedido : ${pedidos}"
+                        th:classappend="${pedido.pedido.total.compareTo(estadisticas.importeMaximo) == 0} ? 'table-success' : (${pedido.pedido.total.compareTo(estadisticas.importeMinimo) == 0} ? 'table-warning' : '')">
                         <td th:text="${pedido.pedido.id}">0</td>
                         <td th:text="${pedido.pedido.total}">0.00</td>
                         <td th:text="${pedido.pedido.fecha ?: '-'}">fecha</td>
@@ -27,6 +53,24 @@
                     </tr>
                     <tr th:if="${#lists.isEmpty(pedidos)}">
                         <td colspan="4" class="text-center">Este comercial no tiene pedidos.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h2 class="h4 mt-4">Clientes por importe total de pedidos</h2>
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead class="table-dark">
+                    <tr><th>Posición</th><th>Cliente</th><th>Total de sus pedidos</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cliente, estado : ${estadisticas.clientesOrdenados}">
+                        <td th:text="${estado.count}">1</td>
+                        <td th:text="${cliente.clienteNombre}">cliente</td>
+                        <td th:text="${cliente.importeTotal}">0.00</td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(estadisticas.clientesOrdenados)}">
+                        <td colspan="3" class="text-center">No hay clientes con pedidos asociados.</td>
                     </tr>
                 </tbody>
             </table>
