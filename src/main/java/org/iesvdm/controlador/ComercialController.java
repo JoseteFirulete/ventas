@@ -77,7 +77,7 @@ public class ComercialController {
 		try {
 		    comercialService.delete(id);
 		} catch (DataIntegrityViolationException ex) {
-		    avisos.addFlashAttribute("error", "No se puede eliminar el comercial porque tiene pedidos asociados.");
+		    avisos.addFlashAttribute("error", "No se puede eliminar el comercial porque tiene pedidos o clientes asociados.");
 		}
 		return new RedirectView("/comerciales");
 	}

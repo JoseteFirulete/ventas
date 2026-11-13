@@ -19,6 +19,22 @@ CREATE TABLE comercial (
   comisión FLOAT
 );
 
+CREATE TABLE cliente_has_comercial (
+  cliente_id INT UNSIGNED NOT NULL,
+  comercial_id INT UNSIGNED NOT NULL,
+  fecha_asociacion DATE NOT NULL,
+  prioridad INT UNSIGNED NOT NULL,
+  PRIMARY KEY (cliente_id, comercial_id),
+  INDEX fk_cliente_has_comercial_comercial1_idx (comercial_id ASC),
+  INDEX fk_cliente_has_comercial_cliente1_idx (cliente_id ASC),
+  CONSTRAINT fk_cliente_has_comercial_cliente1
+    FOREIGN KEY (cliente_id) REFERENCES cliente (id)
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_cliente_has_comercial_comercial1
+    FOREIGN KEY (comercial_id) REFERENCES comercial (id)
+    ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE = InnoDB;
+
 CREATE TABLE pedido (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   total DECIMAL(12, 2) NOT NULL,
